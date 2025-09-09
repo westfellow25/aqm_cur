@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Центр Управления Регионом Акмолинской области - ИИ Помощник</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 font-['Inter']">
+    <!-- Главный заголовок -->
+    <header class="bg-gradient-to-r from-blue-900 to-blue-700 text-white p-6 shadow-lg">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="bg-white p-2 rounded-full">
+                    <i class="fas fa-building text-blue-900 text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold">Центр Управления Регионом</h1>
+                    <p class="text-blue-200">Акмолинская область</p>
+                </div>
+            </div>
+            <div class="text-right">
+                <p class="text-lg font-semibold">Марат Муратович</p>
+                <p class="text-blue-200">Аким области</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контейнер -->
+    <div class="container mx-auto p-6">
+        <div class="grid grid-cols-1 xl:grid-cols-4 gap-6">
+            <!-- Панель кейсов (слева) -->
+            <div class="xl:col-span-1">
+                <div class="bg-white rounded-xl shadow-lg p-6 sticky top-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-list-ul mr-2 text-purple-600"></i>
+                        Кейсы управления
+                    </h3>
+                    
+                    <!-- Поиск по кейсам -->
+                    <div class="mb-4">
+                        <input type="text" id="case-search" placeholder="Поиск кейсов..." 
+                               class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <!-- Категории кейсов -->
+                    <div id="cases-panel" class="space-y-2 max-h-96 overflow-y-auto">
+                        <!-- Аналитические кейсы -->
+                        <div class="case-category">
+                            <div class="case-category-header flex items-center justify-between bg-blue-50 p-2 rounded cursor-pointer hover:bg-blue-100" data-category="analytics">
+                                <span class="text-sm font-semibold text-blue-800 flex items-center">
+                                    <i class="fas fa-chart-bar mr-2"></i>
+                                    Аналитика
+                                </span>
+                                <i class="fas fa-chevron-down text-blue-600 transform transition-transform"></i>
+                            </div>
+                            <div class="case-items space-y-1 mt-2 hidden">
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="monthly-dynamics">
+                                    📊 Динамика по месяцам
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="districts-efficiency">
+                                    🏆 Эффективность районов
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="social-mood">
+                                    📱 Социальные настроения
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="appeals-forecast">
+                                    🔮 Прогноз обращений
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="critical-zones">
+                                    🚨 Критические зоны
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Экстренные ситуации -->
+                        <div class="case-category">
+                            <div class="case-category-header flex items-center justify-between bg-red-50 p-2 rounded cursor-pointer hover:bg-red-100" data-category="emergency">
+                                <span class="text-sm font-semibold text-red-800 flex items-center">
+                                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                                    ЧС и кризисы
+                                </span>
+                                <i class="fas fa-chevron-down text-red-600 transform transition-transform"></i>
+                            </div>
+                            <div class="case-items space-y-1 mt-2 hidden">
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="flood-emergency">
+                                    🌊 Режим ЧС - наводнение
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="power-outage">
+                                    ⚡ Отключение электричества
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="mass-poisoning">
+                                    🏥 Массовое отравление
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="snow-collapse">
+                                    ❄️ Снежный коллапс
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Бюджет и ресурсы -->
+                        <div class="case-category">
+                            <div class="case-category-header flex items-center justify-between bg-green-50 p-2 rounded cursor-pointer hover:bg-green-100" data-category="budget">
+                                <span class="text-sm font-semibold text-green-800 flex items-center">
+                                    <i class="fas fa-coins mr-2"></i>
+                                    Бюджет
+                                </span>
+                                <i class="fas fa-chevron-down text-green-600 transform transition-transform"></i>
+                            </div>
+                            <div class="case-items space-y-1 mt-2 hidden">
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="budget-execution">
+                                    💰 Исполнение бюджета
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="find-funding">
+                                    🔍 Поиск финансирования
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="optimize-expenses">
+                                    📉 Оптимизация расходов
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="winter-purchases">
+                                    🛒 Закупки на зиму
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Кадровые вопросы -->
+                        <div class="case-category">
+                            <div class="case-category-header flex items-center justify-between bg-purple-50 p-2 rounded cursor-pointer hover:bg-purple-100" data-category="hr">
+                                <span class="text-sm font-semibold text-purple-800 flex items-center">
+                                    <i class="fas fa-users mr-2"></i>
+                                    Кадры
+                                </span>
+                                <i class="fas fa-chevron-down text-purple-600 transform transition-transform"></i>
+                            </div>
+                            <div class="case-items space-y-1 mt-2 hidden">
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="overloaded-akims">
+                                    📊 Перегруженные акимы
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="new-akim-selection">
+                                    👔 Подбор нового акима
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="motivation-system">
+                                    🎯 Система мотивации
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="staff-training">
+                                    📚 Обучение персонала
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Инфраструктура -->
+                        <div class="case-category">
+                            <div class="case-category-header flex items-center justify-between bg-orange-50 p-2 rounded cursor-pointer hover:bg-orange-100" data-category="infrastructure">
+                                <span class="text-sm font-semibold text-orange-800 flex items-center">
+                                    <i class="fas fa-hammer mr-2"></i>
+                                    Инфраструктура
+                                </span>
+                                <i class="fas fa-chevron-down text-orange-600 transform transition-transform"></i>
+                            </div>
+                            <div class="case-items space-y-1 mt-2 hidden">
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="school-construction">
+                                    🏫 Строительство школы
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="heating-readiness">
+                                    🔥 Готовность к отоплению
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="road-repair-plan">
+                                    🛣️ План ремонта дорог
+                                </button>
+                                <button class="case-btn w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-gray-100 rounded" data-case="digitalization">
+                                    💻 Цифровизация акиматов
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Еще категории... -->
+                        <div class="text-center py-2">
+                            <button id="show-more-cases" class="text-xs text-gray-500 hover:text-blue-600">
+                                <i class="fas fa-plus mr-1"></i>
+                                Показать все категории
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ИИ Помощник (справа) -->
+            <div class="xl:col-span-3">
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Левая колонка: Аватар и управление -->
+                <div class="lg:col-span-1">
+                    <!-- Аватар ИИ -->
+                    <div class="text-center mb-8">
+                        <div id="avatar-container" class="relative inline-block">
+                            <div id="avatar" class="w-32 h-32 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 avatar-idle shadow-lg">
+                                <i class="fas fa-robot text-white text-4xl"></i>
+                            </div>
+                            <!-- Индикатор прослушивания -->
+                            <div id="listening-indicator" class="absolute -bottom-2 -right-2 w-8 h-8 bg-red-500 rounded-full hidden items-center justify-center">
+                                <i class="fas fa-microphone text-white text-sm"></i>
+                            </div>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">ИИ Помощник</h2>
+                        <p class="text-gray-600">ИИ-ассистент для управления регионом</p>
+                        <div id="voice-indicator" class="hidden mt-2 text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded-full inline-block">
+                            <i class="fas fa-volume-up mr-1"></i>
+                            Мужской голос активирован
+                        </div>
+                        <button id="play-correct-greeting" class="hidden mt-3 bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs font-medium transition-all duration-300">
+                            <i class="fas fa-play mr-1"></i>
+                            Воспроизвести приветствие
+                        </button>
+                    </div>
+
+                    <!-- Активация ИИ -->
+                    <div class="text-center mb-8">
+                        <button id="activate-ai" class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl w-full mb-3">
+                            <i class="fas fa-power-off mr-2"></i>
+                            Активировать ИИ помощника
+                        </button>
+                        
+                        <button id="start-voice" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl w-full hidden">
+                            <i class="fas fa-microphone mr-2"></i>
+                            Начать голосовое управление
+                        </button>
+                        <p id="voice-status" class="text-gray-600 mt-3 text-sm">Активируйте ИИ помощника</p>
+                    </div>
+
+                    <!-- Визуализация речи -->
+                    <div id="speech-visualization" class="hidden mb-6">
+                        <div class="bg-gray-100 rounded-lg p-4">
+                            <h3 class="text-sm font-semibold mb-3 text-center">Слушаю...</h3>
+                            <div class="flex justify-center space-x-1 mb-3">
+                                <div class="speech-bar w-1 h-6 bg-blue-500 rounded"></div>
+                                <div class="speech-bar w-1 h-8 bg-blue-500 rounded"></div>
+                                <div class="speech-bar w-1 h-4 bg-blue-500 rounded"></div>
+                                <div class="speech-bar w-1 h-7 bg-blue-500 rounded"></div>
+                                <div class="speech-bar w-1 h-5 bg-blue-500 rounded"></div>
+                                <div class="speech-bar w-1 h-9 bg-blue-500 rounded"></div>
+                                <div class="speech-bar w-1 h-6 bg-blue-500 rounded"></div>
+                                <div class="speech-bar w-1 h-8 bg-blue-500 rounded"></div>
+                            </div>
+                            <p id="recognized-text" class="text-center text-gray-700 font-medium text-xs"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Правая колонка: Чат -->
+                <div class="lg:col-span-2">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                        <i class="fas fa-comments mr-2 text-blue-600"></i>
+                        Диалог с ИИ-помощником
+                    </h3>
+                    <div id="chat-container" class="h-96 overflow-y-auto bg-gray-50 rounded-lg p-4 border">
+                        <div id="welcome-message" class="bg-gray-100 border-l-4 border-gray-400 p-3 rounded-r-lg mb-3">
+                            <p class="text-gray-600 text-sm"><i class="fas fa-info-circle mr-2"></i> Активируйте ИИ помощника для начала работы</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Панель сбора данных -->
+        <div id="data-collection-panel" class="hidden bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">
+                <i class="fas fa-database mr-2 text-blue-600"></i>
+                Сбор данных из информационных систем
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="data-sources">
+                <div class="data-source-card" data-source="i-komek">
+                    <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                        <div class="status-indicator bg-gray-300 w-4 h-4 rounded-full mr-3"></div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">i-komek</h4>
+                            <p class="text-sm text-gray-600">Портал государственных услуг</p>
+                        </div>
+                        <i class="fas fa-globe text-blue-500 ml-auto text-xl"></i>
+                    </div>
+                    <div class="progress-bar mt-2">
+                        <div class="progress-fill bg-blue-500" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="data-source-card" data-source="contact-center">
+                    <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                        <div class="status-indicator bg-gray-300 w-4 h-4 rounded-full mr-3"></div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Единый контакт центр</h4>
+                            <p class="text-sm text-gray-600">Call-центр 109</p>
+                        </div>
+                        <i class="fas fa-phone text-green-500 ml-auto text-xl"></i>
+                    </div>
+                    <div class="progress-bar mt-2">
+                        <div class="progress-fill bg-green-500" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="data-source-card" data-source="telegram-bots">
+                    <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                        <div class="status-indicator bg-gray-300 w-4 h-4 rounded-full mr-3"></div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Telegram боты акимата</h4>
+                            <p class="text-sm text-gray-600">@akmola_akimat_bot</p>
+                        </div>
+                        <i class="fab fa-telegram text-blue-400 ml-auto text-xl"></i>
+                    </div>
+                    <div class="progress-bar mt-2">
+                        <div class="progress-fill bg-blue-400" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="data-source-card" data-source="egov-portal">
+                    <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                        <div class="status-indicator bg-gray-300 w-4 h-4 rounded-full mr-3"></div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Портал электронного правительства</h4>
+                            <p class="text-sm text-gray-600">egov.kz</p>
+                        </div>
+                        <i class="fas fa-university text-purple-500 ml-auto text-xl"></i>
+                    </div>
+                    <div class="progress-bar mt-2">
+                        <div class="progress-fill bg-purple-500" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="data-source-card" data-source="akimat-website">
+                    <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                        <div class="status-indicator bg-gray-300 w-4 h-4 rounded-full mr-3"></div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Сайт акимата</h4>
+                            <p class="text-sm text-gray-600">akmola.gov.kz</p>
+                        </div>
+                        <i class="fas fa-building text-orange-500 ml-auto text-xl"></i>
+                    </div>
+                    <div class="progress-bar mt-2">
+                        <div class="progress-fill bg-orange-500" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="data-source-card" data-source="summary">
+                    <div class="flex items-center p-4 bg-green-50 rounded-lg border-2 border-green-200">
+                        <div class="status-indicator bg-gray-300 w-4 h-4 rounded-full mr-3"></div>
+                        <div>
+                            <h4 class="font-semibold text-green-800">Сводная обработка</h4>
+                            <p class="text-sm text-green-600">Анализ и структурирование</p>
+                        </div>
+                        <i class="fas fa-chart-line text-green-600 ml-auto text-xl"></i>
+                    </div>
+                    <div class="progress-bar mt-2">
+                        <div class="progress-fill bg-green-600" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="collection-status" class="text-center mt-6">
+                <p class="text-gray-600">Ожидание команды...</p>
+            </div>
+        </div>
+
+        <!-- Информационная панель -->
+        <div id="info-panel" class="hidden">
+            <!-- Статистические карточки -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <div class="text-3xl font-bold text-blue-600" id="total-appeals">0</div>
+                    <div class="text-gray-600">Всего обращений</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <div class="text-3xl font-bold text-red-600" id="critical-appeals">0</div>
+                    <div class="text-gray-600">Критичных</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <div class="text-3xl font-bold text-green-600" id="resolved-appeals">0</div>
+                    <div class="text-gray-600">Решено</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <div class="text-3xl font-bold text-orange-600" id="pending-appeals">0</div>
+                    <div class="text-gray-600">В работе</div>
+                </div>
+            </div>
+
+            <!-- Графики -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-4">Обращения по районам</h3>
+                    <div style="height: 400px; position: relative;">
+                        <canvas id="districts-chart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-4">Категории обращений</h3>
+                    <div style="height: 400px; position: relative;">
+                        <canvas id="categories-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Распределение поручений -->
+            <div id="assignments-panel" class="hidden bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold mb-6 text-center">
+                    <i class="fas fa-paper-plane mr-2 text-blue-600"></i>
+                    Формирование и отправка поручений
+                </h3>
+                
+                <!-- Процесс формирования -->
+                <div id="formation-process" class="mb-8">
+                    <h4 class="text-lg font-semibold mb-4 text-gray-800">
+                        <i class="fas fa-cogs mr-2 text-orange-500"></i>
+                        Этап 1: Формирование поручений
+                    </h4>
+                    <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                        <div class="flex items-center mb-2">
+                            <div class="formation-indicator bg-gray-400 w-3 h-3 rounded-full mr-2"></div>
+                            <span class="text-sm text-gray-600">Анализ критичности обращений...</span>
+                        </div>
+                        <div class="formation-progress bg-gray-200 h-2 rounded-full">
+                            <div class="formation-fill bg-orange-500 h-full rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Процесс отправки -->
+                <div id="sending-process" class="mb-8 hidden">
+                    <h4 class="text-lg font-semibold mb-4 text-gray-800">
+                        <i class="fas fa-share-alt mr-2 text-green-500"></i>
+                        Этап 2: Отправка поручений
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+                            <i class="fas fa-envelope text-blue-600 text-2xl mb-2"></i>
+                            <h5 class="font-semibold text-blue-800">Email рассылка</h5>
+                            <p class="text-sm text-blue-600">Официальные поручения</p>
+                            <div id="email-counter" class="text-lg font-bold text-blue-800 mt-2">0/7</div>
+                        </div>
+                        <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center">
+                            <i class="fab fa-telegram text-purple-600 text-2xl mb-2"></i>
+                            <h5 class="font-semibold text-purple-800">Aitu мессенджер</h5>
+                            <p class="text-sm text-purple-600">Уведомления и напоминания</p>
+                            <div id="aitu-counter" class="text-lg font-bold text-purple-800 mt-2">0/7</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Список поручений по районам -->
+                <div id="assignments-list"></div>
+                
+                <!-- Итоговый отчет -->
+                <div id="final-report" class="hidden mt-8 p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <h4 class="text-lg font-bold text-green-800 mb-3">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        Отчет о выполнении поручений
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">7</div>
+                            <p class="text-green-700">Районов охвачено</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-blue-600">14</div>
+                            <p class="text-blue-700">Сообщений отправлено</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-orange-600">100%</div>
+                            <p class="text-orange-700">Успешность доставки</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Аудио элементы -->
+    <audio id="greeting-audio" preload="auto">
+        <source src="https://cdn1.genspark.ai/user-upload-image/8/6e1e5799-a593-472c-820d-8a99688f6157.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="data-collection-audio" preload="auto">
+        <source src="https://cdn1.genspark.ai/user-upload-image/8/02d6da7d-f8d8-4050-948b-aff136dc02cd.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="statistics-audio" preload="auto">
+        <source src="https://cdn1.genspark.ai/user-upload-image/8/ddec1930-a5af-4629-bcaf-b24bf30dba51.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="assignments-audio" preload="auto">
+        <source src="https://cdn1.genspark.ai/user-upload-image/8/7df221a6-8e4b-40e2-a63c-609d830d2378.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="completion-audio" preload="auto">
+        <source src="https://cdn1.genspark.ai/user-upload-image/8/a9d41738-db95-4201-88f7-4a2fddf69ccc.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="js/voice-recognition.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/cases-panel.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
